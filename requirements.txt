@@ -1,0 +1,6 @@
+streamlit
+streamlit-autorefresh
+pillow
+scikit-learn
+pickle-mixin
+plotly
