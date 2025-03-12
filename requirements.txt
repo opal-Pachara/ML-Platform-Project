@@ -4,3 +4,4 @@ pillow
 scikit-learn
 pickle-mixin
 plotly
+torch
