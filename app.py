@@ -155,11 +155,17 @@ def main():
         </script>
     """, unsafe_allow_html=True)
 
+    # Visitor count and GitHub link in the sidebar
     st.sidebar.markdown(f"""
         <div style='text-align: center; padding: 15px; background-color: #1a1b22; border-radius: 10px; margin-top: 20px; border: 1px solid #333333;'>
             <h3 style='font-family: Athiti; color: #ffffff; margin: 0;'>👀 จำนวนคนเข้าชม</h3>
             <p style='font-family: Athiti; font-size: 28px; font-weight: bold; color: #00d4ff; margin: 5px 0;'>{visitor_count}</p>
             <p style='font-family: Athiti; font-size: 12px; color: #b0b0b0; margin: 0;'>อัปเดต: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+        </div>
+        <div style='text-align: center; margin-top: 15px;'>
+            <a href='https://github.com/opal-Pachara' target='_blank' style='font-family: Athiti; font-size: 16px; color: #00d4ff; text-decoration: none;'>
+                🌐 GitHub Repository
+            </a>
         </div>
     """, unsafe_allow_html=True)
 
