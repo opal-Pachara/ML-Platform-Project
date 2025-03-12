@@ -1,10 +1,10 @@
 import streamlit as st
 from datetime import datetime
-from streamlit_autorefresh import st_autorefresh  # Ensure correct import
+from streamlit_autorefresh import st_autorefresh  
 from show_introduction import show_introduction
 from show_model_development import show_model_development
 from show_ml import show_ml
-from show_nn import show_nn  # Import the show_nn function
+from show_nn import show_nn
 
 def main():
     # Handle visitor count with session state
@@ -16,13 +16,13 @@ def main():
         st.session_state.session_ids.add(st.session_state.session_id)
 
     real_count = len(st.session_state.session_ids)
-    visitor_count = 181 + real_count
+    visitor_count = 208 + real_count
 
     # Auto-refresh every 1 second (for the visitor count update)
     if 'refresh_enabled' not in st.session_state or st.session_state.refresh_enabled:
         st_autorefresh(interval=1000, key="visitor_refresh")
 
-    # CSS for styling
+    # CSS for styling รวมการปรับแต่งปุ่มในเว็บให้เข้ากับกล่องกรอกข้อมูล
     st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Athiti:wght@400&display=swap');
@@ -32,9 +32,8 @@ def main():
             font-weight: 400;
             line-height: 1.6;
             color: #ffffff;
-            background-color: #121212;
         }
-        .stSidebar, .stRadio, .stButton>button, .stMarkdown, 
+        .stSidebar, .stButton>button, .stMarkdown, 
         .stTextInput, .stNumberInput {
             font-family: 'Athiti', sans-serif !important;
             font-size: 16px !important;
@@ -42,81 +41,136 @@ def main():
             line-height: 1.6 !important;
             color: #ffffff !important;
         }
+        /* Sidebar styling */
+        .stSidebar {
+            background-color: #111217 !important;
+        }
+        .stSidebar * {
+            color: #ffffff !important;
+        }
+        /* ปุ่มใน Sidebar */
+        .stSidebar .stButton>button {
+            background-color: #1a1b22 !important;  /* พื้นหลังปกติ */
+            color: #b0b0b0 !important;  /* ข้อความเทาอ่อน */
+            border: none !important;  /* ไม่มีขอบ */
+            border-radius: 6px;
+            padding: 8px 12px;
+            width: 100%;  /* ขยายเต็มความกว้าง */
+            text-align: left;  /* ข้อความชิดซ้าย */
+            transition: all 0.2s ease;  /* เปลี่ยนสีแบบนุ่มนวล */
+            margin: 4px 0;  /* ระยะห่างระหว่างปุ่ม */
+        }
+        .stSidebar .stButton>button:hover {
+            background-color: #FF4B4B !important;  /* สีแดงเข้มเมื่อ hover */
+            color: #ffffff !important;  /* ข้อความขาว */
+        }
+        .stSidebar .stButton>button.active {
+            background-color: #00d4ff !important;  /* สีฟ้าเมื่อเลือก */
+            color: #121212 !important;  /* ข้อความเทาเข้ม */
+            font-weight: 600 !important;  /* ตัวหนา */
+        }
+        /* Dark Mode */
         @media (prefers-color-scheme: dark) {
             .stApp {
                 background: #121212;
-                color: white;
+                color: #ffffff;
             }
             h1, h2, h3, h4 {
-                color: #B0B0B0;
+                color: #ffffff;
             }
-            .stButton>button {
-                background-color: #333333;
-                color: white;
+            .stButton>button:not(.stSidebar .stButton>button) {
+                background-color: #242222 !important;  /* ปรับให้เข้ากับ TextInput */
+                color: #ffffff !important;
                 border-radius: 8px;
                 padding: 10px;
-                border: 1px solid #555555;
+                border: 1px solid #FF4B4B !important;  /* ขอบเหมือน TextInput */
                 transition: 0.3s;
             }
-            .stButton>button:hover {
-                background-color: #555555;
+            .stButton>button:not(.stSidebar .stButton>button):hover {
+                background-color: #333333 !important;
             }
             .stTextInput>div>div>input {
-                background-color: #222222;
-                color: white;
-                border: 1px solid #444444;
+                background-color: #000000;
+                color: #ffffff;
+                border: 1px solid #333333;
             }
         }
+        /* Light Mode */
         @media (prefers-color-scheme: light) {
             .stApp {
-                background: white;
-                color: black;
+                background: #121212;
+                color: #ffffff;
             }
             h1, h2, h3, h4 {
-                color: #333333;
+                color: #ffffff;
             }
-            .stButton>button {
-                background-color: #E0E0E0;
-                color: black;
+            .stButton>button:not(.stSidebar .stButton>button) {
+                background-color: #000000 !important;  /* ปรับให้เข้ากับ TextInput */
+                color: #ffffff !important;
                 border-radius: 8px;
                 padding: 10px;
-                border: 1px solid #BBBBBB;
+                border: 1px solid #333333 !important;  /* ขอบเหมือน TextInput */
                 transition: 0.3s;
             }
-            .stButton>button:hover {
-                background-color: #CCCCCC;
+            .stButton>button:not(.stSidebar .stButton>button):hover {
+                background-color: #333333 !important;
             }
             .stTextInput>div>div>input {
-                background-color: #F0F0F0;
-                color: black;
-                border: 1px solid #CCCCCC;
+                background-color: #000000;
+                color: #ffffff;
+                border: 1px solid #333333;
             }
         }
         </style>
     """, unsafe_allow_html=True)
-
+    
+    st.logo("img/logo.png", size="large")
     st.sidebar.title("Intelligent System Project")
     st.sidebar.caption("Phatchara Worrawat 6404062610324")
     st.sidebar.title("Menu")
-    page = st.sidebar.radio("", ["Introduction & Data Set", "Algorithm & Model Development", "Machine Learning Model", "Neural Network Model"])
+
+    # ใช้ Session State เพื่อติดตามหน้าที่เลือก
+    if 'selected_page' not in st.session_state:
+        st.session_state.selected_page = "Introduction & Data Set"
+
+    # สร้างปุ่มใน Sidebar
+    if st.sidebar.button("Introduction & Data Set", key="intro"):
+        st.session_state.selected_page = "Introduction & Data Set"
+    if st.sidebar.button("Algorithm & Model Development", key="algo"):
+        st.session_state.selected_page = "Algorithm & Model Development"
+    if st.sidebar.button("Machine Learning Model", key="ml"):
+        st.session_state.selected_page = "Machine Learning Model"
+    if st.sidebar.button("Neural Network Model", key="nn"):
+        st.session_state.selected_page = "Neural Network Model"
+
+    # ใช้ JavaScript เพื่อเพิ่มคลาส active ให้ปุ่มที่เลือก
+    st.markdown(f"""
+        <script>
+        document.querySelectorAll('.stSidebar .stButton>button').forEach(button => {{
+            button.classList.remove('active');
+            if (button.textContent === "{st.session_state.selected_page}") {{
+                button.classList.add('active');
+            }}
+        }});
+        </script>
+    """, unsafe_allow_html=True)
 
     st.sidebar.markdown(f"""
-        <div style='text-align: center; padding: 15px; background-color: #1e1e1e; border-radius: 10px; margin-top: 20px;'>
-            <h3 style='font-family: Athiti; color: #B0B0B0; margin: 0;'>👀 จำนวนคนเข้าชม</h3>
-            <p style='font-family: Athiti; font-size: 28px; font-weight: bold; color: #00b4d8; margin: 5px 0;'>{visitor_count}</p>
-            <p style='font-family: Athiti; font-size: 12px; color: #888888; margin: 0;'>อัปเดต: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+        <div style='text-align: center; padding: 15px; background-color: #1a1b22; border-radius: 10px; margin-top: 20px; border: 1px solid #333333;'>
+            <h3 style='font-family: Athiti; color: #ffffff; margin: 0;'>👀 จำนวนคนเข้าชม</h3>
+            <p style='font-family: Athiti; font-size: 28px; font-weight: bold; color: #00d4ff; margin: 5px 0;'>{visitor_count}</p>
+            <p style='font-family: Athiti; font-size: 12px; color: #b0b0b0; margin: 0;'>อัปเดต: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
         </div>
     """, unsafe_allow_html=True)
 
     # Data options for selection
-
-    if page == "Introduction & Data Set":
+    if st.session_state.selected_page == "Introduction & Data Set":
         show_introduction()
-    elif page == "Algorithm & Model Development":
+    elif st.session_state.selected_page == "Algorithm & Model Development":
         show_model_development()
-    elif page == "Machine Learning Model":
+    elif st.session_state.selected_page == "Machine Learning Model":
         show_ml()
-    elif page == "Neural Network Model":
+    elif st.session_state.selected_page == "Neural Network Model":
         show_nn()
 
 if __name__ == "__main__":
