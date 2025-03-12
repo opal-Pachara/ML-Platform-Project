@@ -217,7 +217,7 @@ print(df.isnull().sum())'''
     Code การพัฒนาโมเดล Neural Network
     </h5>""", unsafe_allow_html=True)
         st.markdown("""<h5 style='font-family: Athiti;'>
-    1.นำเข้าไลบรารีที่จำเป็นทั้งหมด เช่น pandas สำหรับจัดการข้อมูล, torch สำหรับการสร้างโมเดล
+    <br>1.นำเข้าไลบรารีที่จำเป็นทั้งหมด เช่น pandas สำหรับจัดการข้อมูล, torch สำหรับการสร้างโมเดล
     </h5>""", unsafe_allow_html=True)
         code = '''import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -230,7 +230,7 @@ import joblib
 '''
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
         st.markdown("""<h5 style='font-family: Athiti;'>
-    2.ข้อความในคอลัมน์ 'Comment' ถูกแปลงเป็นเวกเตอร์ TF-IDF โดยใช้ TfidfVectorizer ซึ่งจำกัดจำนวนคำที่สำคัญที่ใช้ในการสร้างเวกเตอร์. 
+    <br>2.ข้อความในคอลัมน์ 'Comment' ถูกแปลงเป็นเวกเตอร์ TF-IDF โดยใช้ TfidfVectorizer ซึ่งจำกัดจำนวนคำที่สำคัญที่ใช้ในการสร้างเวกเตอร์. 
                     ส่วนของ Label ในคอลัมน์ 'Sentiment' ถูกแปลงเป็นตัวเลขเพื่อใช้ในการฝึกโมเดล โดย LabelEncoder จะแปลงค่าของ 'negative', 'neutral', 'positive' 
                     เป็นตัวเลข 0, 1, 2 ตามลำดับ.
     </h5>""", unsafe_allow_html=True)
@@ -246,7 +246,7 @@ X = tfidf.fit_transform(texts).toarray()
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
-    3.ข้อมูลถูกแบ่งออกเป็นสองชุด: ชุดฝึก (training) และชุดทดสอบ (testing) โดยใช้ train_test_split จาก sklearn. 
+    <br>3.ข้อมูลถูกแบ่งออกเป็นสองชุด: ชุดฝึก (training) และชุดทดสอบ (testing) โดยใช้ train_test_split จาก sklearn. 
                     ชุดฝึกจะใช้ในการฝึกโมเดล ส่วนชุดทดสอบจะใช้สำหรับการประเมินผลของโมเดลหลังการฝึก.
     </h5>""", unsafe_allow_html=True)
 
@@ -268,7 +268,7 @@ test_loader = DataLoader(test_data, batch_size=32)
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
-    4.สร้างโมเดล Neural Network ด้วย PyTorch โดยใช้ architecture ที่ประกอบด้วย 2 เลเยอร์ที่เป็น Fully Connected Layers. 
+    <br>4.สร้างโมเดล Neural Network ด้วย PyTorch โดยใช้ architecture ที่ประกอบด้วย 2 เลเยอร์ที่เป็น Fully Connected Layers. 
                     เลเยอร์แรกมี 128 นิวรอนและเชื่อมต่อกับอินพุตที่มีขนาด 5000. เลเยอร์ที่สองมี 3 นิวรอน ซึ่งจะส่งออก 3 
                     คลาสที่แสดงถึงความคิดเห็นในเชิงลบ, กลาง, และบวก.
     </h5>""", unsafe_allow_html=True)
@@ -292,7 +292,7 @@ model = SentimentNN()
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
-    5.โมเดลนี้ใช้ CrossEntropyLoss เป็น Loss Function สำหรับการคำนวณค่าผิดพลาดระหว่างค่าที่คาดการณ์และค่าจริง. 
+    <br>5.โมเดลนี้ใช้ CrossEntropyLoss เป็น Loss Function สำหรับการคำนวณค่าผิดพลาดระหว่างค่าที่คาดการณ์และค่าจริง. 
                     ส่วน Adam optimizer ถูกใช้ในการปรับค่าพารามิเตอร์ของโมเดล.
     </h5>""", unsafe_allow_html=True)
         
@@ -303,7 +303,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
-    6.โมเดลจะถูกฝึกด้วยข้อมูลที่แบ่งไว้ในชุดฝึก. ในแต่ละรอบการฝึก (epoch), โมเดลจะคำนวณค่า Loss จากข้อมูลที่ป้อนเข้าไปและปรับค่าพารามิเตอร์โดยใช้ optimizer. 
+    <br>6.โมเดลจะถูกฝึกด้วยข้อมูลที่แบ่งไว้ในชุดฝึก. ในแต่ละรอบการฝึก (epoch), โมเดลจะคำนวณค่า Loss จากข้อมูลที่ป้อนเข้าไปและปรับค่าพารามิเตอร์โดยใช้ optimizer. 
                     กระบวนการนี้จะดำเนินไปจนถึงจำนวน epoch ที่กำหนด.
     </h5>""", unsafe_allow_html=True)
         
@@ -324,7 +324,7 @@ for epoch in range(num_epochs):
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
-    7.หลังจากการฝึกเสร็จสิ้น, โมเดลจะถูกทดสอบด้วยชุดทดสอบที่ไม่ได้ใช้ในการฝึก. เราคำนวณอัตราความถูกต้อง (accuracy) 
+    <br>7.หลังจากการฝึกเสร็จสิ้น, โมเดลจะถูกทดสอบด้วยชุดทดสอบที่ไม่ได้ใช้ในการฝึก. เราคำนวณอัตราความถูกต้อง (accuracy) 
                     โดยการเปรียบเทียบผลลัพธ์ที่คาดการณ์กับค่าจริง.
     </h5>""", unsafe_allow_html=True)
         
@@ -344,7 +344,7 @@ print(f'Accuracy: {100 * correct / total}%')
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
-    8.เมื่อโมเดลได้รับการฝึกเสร็จสมบูรณ์, โมเดลและตัวแปลงข้อความ (TF-IDF vectorizer และ Label encoder) 
+    <br>8.เมื่อโมเดลได้รับการฝึกเสร็จสมบูรณ์, โมเดลและตัวแปลงข้อความ (TF-IDF vectorizer และ Label encoder) 
                     จะถูกบันทึกลงไฟล์เพื่อใช้ในอนาคต. 
                     การบันทึกนี้ช่วยให้เราโหลดโมเดลและตัวแปลงที่ฝึกแล้วมาใช้ในการทำนายในขั้นตอนถัดไปโดยไม่ต้องฝึกใหม่.
     </h5>""", unsafe_allow_html=True)
@@ -368,9 +368,9 @@ print("Model and Vectorizer saved successfully!")
         st.markdown("""<h5 style='font-family: Athiti; text-indent: 2.5em;'>
     ขั้นตอนการพัฒนาโมเดล Machine Learning
     </h5>""", unsafe_allow_html=True)
-        st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
-                    หลังจากที่เราได้เตรียมข้อมูลของ Model Machine Learning สำเร็จ <br> <br>
-     </p>""", unsafe_allow_html=True)
+        st.markdown("""<h5 style='font-family: Athiti;'>
+    หลังจากที่เราได้เตรียมข้อมูลของ Model Machine Learning สำเร็จ
+    </h5>""", unsafe_allow_html=True)
         st.markdown("""<h5 style='font-family: Athiti;'>
     1.ก็ทำการเริ่มต้นด้วยการโหลดข้อมูลขยะพลาสติกรายเดือนจากไฟล์ CSV เข้ามาในตัวแปร เพื่อเตรียมไว้สำหรับการวิเคราะห์ต่อไป
     </h5>""", unsafe_allow_html=True)
