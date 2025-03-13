@@ -29,7 +29,7 @@ def show_model_development():
                     เพื่อให้เหมาะสมกับการทดลองและพัฒนาโมเดล
     </p>""", unsafe_allow_html=True)
         st.markdown("""<h5 style='font-family: Athiti; text-indent: 2.5em;'>
-    แนวคิดของข้อมูล
+    แนวคิดของข้อมูล    
     </h5>""", unsafe_allow_html=True)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
                     - กรมควบคุมมลพิษ (Pollution Control Department) รายงานว่าประเทศไทยสร้างขยะพลาสติกประมาณ 2 ล้านตันต่อปี และขวดพลาสติกเป็นส่วนสำคัญของขยะประเภทนี้ <br>
@@ -234,14 +234,19 @@ import joblib
                     ส่วนของ Label ในคอลัมน์ 'Sentiment' ถูกแปลงเป็นตัวเลขเพื่อใช้ในการฝึกโมเดล โดย LabelEncoder จะแปลงค่าของ 'negative', 'neutral', 'positive' 
                     เป็นตัวเลข 0, 1, 2 ตามลำดับ.
     </h5>""", unsafe_allow_html=True)
-        code = '''# แปลง Labels
+        code = '''# อ่านข้อมูลจาก CSV และจัดการข้อมูลที่หายไป
+df = pd.read_csv('/content/YoutubeCommentsDataSet.csv')
+df = df.dropna(subset=['Comment'])
+df['Comment'] = df['Comment'].fillna('').astype(str)
+
+# แปลง Labels เป็นตัวเลข
 label_encoder = LabelEncoder()
 label_encoder.fit(['negative', 'neutral', 'positive'])
-labels = label_encoder.transform(labels)
+labels = label_encoder.transform(df['Sentiment'].values)
 
-# แปลงข้อความเป็น TF-IDF
+# แปลงข้อความเป็นเวกเตอร์ TF-IDF
 tfidf = TfidfVectorizer(max_features=5000)
-X = tfidf.fit_transform(texts).toarray()
+X = tfidf.fit_transform(df['Comment'].values).toarray()
 '''
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
 
