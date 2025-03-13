@@ -20,7 +20,7 @@ def show_model_development():
     แหล่งที่มาของข้อมูล (Data Preprocessing)
     </h5>""", unsafe_allow_html=True)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
-                       ข้อมูลที่เราใช้ในการวิเคราะห์และฝึกโมเดล Machine Learning ในโปรเจกต์นี้เป็นชุดข้อมูลเกี่ยวกับ
+                       ข้อมูลที่เราใช้ในการวิเคราะห์และฝึกโมเดล Machine Learning ในโปรเจกต์นี้เป็นชุดข้อมูลเกี่ยวกับ
                     <span style="background-color: #990000;">ขยะขวดพลาสติกในประเทศไทย 
                     ตั้งแต่ปี 2000 ถึง 2024</span>
                     ซึ่งครอบคลุมทั้งปริมาณขยะที่เกิดขึ้น
@@ -476,7 +476,7 @@ with open('svr_model_new.pkl', 'wb') as f:
 '''
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
-                       โค้ดนี้พัฒนาโมเดล 
+                       โค้ดนี้พัฒนาโมเดล 
                     <span style="background-color: #990000;">SVR (Support Vector Regression)</span>
                     โดยใช้เคอร์เนลแบบ rbf ซึ่งเหมาะกับข้อมูลที่ไม่เป็นเส้นตรง มีการกำหนดตัวเลือกพารามิเตอร์ 
                     เช่น C (ควบคุมการลงโทษความผิดพลาด), epsilon (กำหนดขอบเขตความคลาดเคลื่อนที่ยอมรับได้), 
@@ -502,7 +502,7 @@ with open('dt_model_new.pkl', 'wb') as f:
 '''
         st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
-                       โค้ดนี้พัฒนาโมเดล 
+                       โค้ดนี้พัฒนาโมเดล 
                     <span style="background-color: #990000;">Decision Tree Regressor</span>
                     ซึ่งเป็นโมเดลที่ตัดสินใจโดยแบ่งข้อมูลเป็นกิ่งเหมือนต้นไม้ โดยตั้งค่า random_state 
                     เพื่อให้ผลลัพธ์สม่ำเสมอ กำหนดพารามิเตอร์ เช่น max_depth (ความลึกสูงสุดของต้นไม้ เพื่อควบคุมความซับซ้อน), 

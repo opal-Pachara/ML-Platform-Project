@@ -4,7 +4,6 @@ import numpy as np
 import os
 from datetime import datetime
 import plotly.graph_objects as go
-# from sklearn.preprocessing import StandardScaler
 
 def show_ml():
     st.markdown("""<h1 style='font-family: Athiti; text-align: center;'>Machine Learning Model</h1>""", unsafe_allow_html=True)
@@ -18,11 +17,11 @@ def show_ml():
     ])
     
     model_paths = {
-        "Decision Tree": "model/dt_model.pkl",
-        "K-Nearest Neighbors": "model/knn_model.pkl",
-        "Random Forest": "model/rf_model.pkl",
-        "SVM Linear": "model/svm_linear_model.pkl",
-        "SVR": "model/svr_model.pkl"
+        "Decision Tree": "model/MLclassical/dt_model.pkl",
+        "K-Nearest Neighbors": "model/MLclassical/knn_model.pkl",
+        "Random Forest": "model/MLclassical/rf_model.pkl",
+        "SVM Linear": "model/MLclassical/svm_linear_model.pkl",
+        "SVR": "model/MLclassical/svr_model.pkl"
     }
 
     models = {}
@@ -34,7 +33,7 @@ def show_ml():
             st.error(f"ไม่พบไฟล์โมเดล {name} ที่ {path}")
             return
 
-    scaler_path = "model/scaler.pkl"
+    scaler_path = "model/MLclassical/scaler.pkl"
     try:
         with open(scaler_path, 'rb') as f:
             scaler = pickle.load(f)

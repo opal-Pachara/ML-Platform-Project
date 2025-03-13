@@ -4,7 +4,6 @@ import streamlit as st
 import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-# สร้างโมเดล Neural Network สำหรับการทำนาย Sentiment
 class SentimentNN(nn.Module):
     def __init__(self, input_size=5000, hidden_size=128, output_size=3):
         super(SentimentNN, self).__init__()
@@ -21,22 +20,18 @@ class SentimentNN(nn.Module):
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# โหลดโมเดลและ TF-IDF vectorizer
 try:
-    model = SentimentNN().to(device)  # Initialize with default input_size=5000
-    model.load_state_dict(torch.load("model/sentiment_model.pth", map_location=device))
+    model = SentimentNN().to(device)  
+    model.load_state_dict(torch.load("model/NeuralModel/sentiment_model.pth", map_location=device))
     model.eval()
-    tfidf = joblib.load('model/tfidf_vectorizer.pkl')
+    tfidf = joblib.load('model/NeuralModel/tfidf_vectorizer.pkl')
 except FileNotFoundError as e:
-    st.error(f"Error loading files: {e}. Check if 'model/sentiment_model.pth' and 'model/tfidf_vectorizer.pkl' exist.")
+    st.error(f"Error loading files: {e}. Check if 'model/NeuralModel/sentiment_model.pth' and 'model/NeuralModel/tfidf_vectorizer.pkl' exist.")
     raise
 
-# ฟังก์ชันสำหรับทำนายผล Sentiment
 def predict_sentiment(text):
     try:
-        # แปลงข้อความเป็น TF-IDF vector
         text_vector = tfidf.transform([text]).toarray()
-        # ทำนายผลลัพธ์จากโมเดล
         with torch.no_grad():
             inputs = torch.tensor(text_vector, dtype=torch.float32).to(device)
             outputs = model(inputs)
@@ -44,20 +39,17 @@ def predict_sentiment(text):
         
         sentiment = ["Negative", "Neutral", "Positive"][predicted.item()]
         
-        # Map sentiment to emoji
         sentiment_emoji = {
             "Negative": "😞",
             "Neutral": "😐",
             "Positive": "😀"
         }
         
-        # Return sentiment and emoji
         return f"{sentiment} {sentiment_emoji[sentiment]}"
     except Exception as e:
         st.error(f"Prediction error: {e}")
         return None
 
-# ฟังก์ชันในการแสดงผล
 def show_nn():
     st.markdown("""<h1 style='font-family: Athiti; text-align: center;'>
     YouTube Comment Sentiment Analysis
@@ -71,11 +63,9 @@ def show_nn():
         if user_input:
             sentiment = predict_sentiment(user_input)
             if sentiment:
-                # Store the result in session state
                 st.session_state.sentiment_result = sentiment
         else:
             st.session_state.sentiment_result = "Please enter a comment for prediction."
 
-    # Display the stored result (won’t disappear on rerun)
     if st.session_state.sentiment_result:
         st.write(f"Predicted Sentiment: {st.session_state.sentiment_result}")
