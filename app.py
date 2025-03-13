@@ -7,6 +7,7 @@ from show_ml import show_ml
 from show_nn import show_nn
 
 def main():
+    # Handle visitor count with session state
     if 'session_ids' not in st.session_state:
         st.session_state.session_ids = set()
 
@@ -17,9 +18,11 @@ def main():
     real_count = len(st.session_state.session_ids)
     visitor_count = 208 + real_count
 
+    # Auto-refresh every 1 second (for the visitor count update)
     if 'refresh_enabled' not in st.session_state or st.session_state.refresh_enabled:
         st_autorefresh(interval=1000, key="visitor_refresh")
 
+    # CSS for styling รวมการปรับแต่งปุ่มในเว็บให้เข้ากับกล่องกรอกข้อมูล
     st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Athiti:wght@400&display=swap');
@@ -126,9 +129,11 @@ def main():
     st.sidebar.caption("Phatchara Worrawat 6404062610324")
     st.sidebar.title("Menu")
 
+    # ใช้ Session State เพื่อติดตามหน้าที่เลือก
     if 'selected_page' not in st.session_state:
         st.session_state.selected_page = "Introduction & Data Set"
 
+    # สร้างปุ่มใน Sidebar
     if st.sidebar.button("Introduction & Data Set", key="intro"):
         st.session_state.selected_page = "Introduction & Data Set"
     if st.sidebar.button("Algorithm & Model Development", key="algo"):
@@ -138,6 +143,7 @@ def main():
     if st.sidebar.button("Neural Network Model", key="nn"):
         st.session_state.selected_page = "Neural Network Model"
 
+    # ใช้ JavaScript เพื่อเพิ่มคลาส active ให้ปุ่มที่เลือก
     st.markdown(f"""
         <script>
         document.querySelectorAll('.stSidebar .stButton>button').forEach(button => {{
@@ -149,6 +155,7 @@ def main():
         </script>
     """, unsafe_allow_html=True)
 
+    # Visitor count and GitHub link in the sidebar
     st.sidebar.markdown(f"""
         <div style='text-align: center; padding: 15px; background-color: #1a1b22; border-radius: 10px; margin-top: 20px; border: 1px solid #333333;'>
             <h3 style='font-family: Athiti; color: #ffffff; margin: 0;'>👀 จำนวนคนเข้าชม</h3>
@@ -162,6 +169,7 @@ def main():
         </div>
     """, unsafe_allow_html=True)
 
+    # Data options for selection
     if st.session_state.selected_page == "Introduction & Data Set":
         show_introduction()
     elif st.session_state.selected_page == "Algorithm & Model Development":
