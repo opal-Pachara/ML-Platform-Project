@@ -722,7 +722,7 @@ with open('svm_linear_model_new.pkl', 'wb') as f:
                     ''')
             
             st.markdown("""<h5 style='font-family: Athiti;'>
-    Accracy
+    Accuracy
     </h5>""", unsafe_allow_html=True)
             st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
                        Accuracy เป็นตัวชี้วัดที่คำนวณจากค่า MAPE เพื่อหาค่าควาแม่นยำของโมเดล
