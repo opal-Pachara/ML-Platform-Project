@@ -22,105 +22,116 @@ def main():
     if 'refresh_enabled' not in st.session_state or st.session_state.refresh_enabled:
         st_autorefresh(interval=1000, key="visitor_refresh")
 
-    # CSS for styling รวมการปรับแต่งปุ่มในเว็บให้เข้ากับกล่องกรอกข้อมูล
-    st.markdown("""
+    # Conditionally hide navbar for the "Introduction & Data Set" page
+    navbar_css = ""
+    if st.session_state.get('selected_page', "Introduction & Data Set") == "Introduction & Data Set":
+        navbar_css = """
+            header[data-testid="stHeader"] {
+                display: none !important;
+            }
+        """
+
+    # CSS for styling, including conditional navbar hiding
+    st.markdown(f"""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Athiti:wght@400&display=swap');
-        html, body, [class*="css"] {
+        html, body, [class*="css"] {{
             font-family: 'Athiti', sans-serif;
             font-size: 16px;
             font-weight: 400;
             line-height: 1.6;
             color: #ffffff;
-        }
+        }}
         .stSidebar, .stButton>button, .stMarkdown, 
-        .stTextInput, .stNumberInput {
+        .stTextInput, .stNumberInput {{
             font-family: 'Athiti', sans-serif !important;
             font-size: 16px !important;
             font-weight: 400 !important;
             line-height: 1.6 !important;
             color: #ffffff !important;
-        }
+        }}
         /* Sidebar styling */
-        .stSidebar {
+        .stSidebar {{
             background-color: #111217 !important;
-        }
-        .stSidebar * {
+        }}
+        .stSidebar * {{
             color: #ffffff !important;
-        }
+        }}
         /* ปุ่มใน Sidebar */
-        .stSidebar .stButton>button {
-            background-color: #1a1b22 !important;  /* พื้นหลังปกติ */
-            color: #b0b0b0 !important;  /* ข้อความเทาอ่อน */
-            border: none !important;  /* ไม่มีขอบ */
+        .stSidebar .stButton>button {{
+            background-color: #1a1b22 !important;
+            color: #b0b0b0 !important;
+            border: none !important;
             border-radius: 6px;
             padding: 8px 12px;
-            width: 100%;  /* ขยายเต็มความกว้าง */
-            text-align: left;  /* ข้อความชิดซ้าย */
-            transition: all 0.2s ease;  /* เปลี่ยนสีแบบนุ่มนวล */
-            margin: 4px 0;  /* ระยะห่างระหว่างปุ่ม */
-        }
-        .stSidebar .stButton>button:hover {
-            background-color: #FF4B4B !important;  /* สีแดงเข้มเมื่อ hover */
-            color: #ffffff !important;  /* ข้อความขาว */
-        }
-        .stSidebar .stButton>button.active {
-            background-color: #00d4ff !important;  /* สีฟ้าเมื่อเลือก */
-            color: #121212 !important;  /* ข้อความเทาเข้ม */
-            font-weight: 600 !important;  /* ตัวหนา */
-        }
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s ease;
+            margin: 4px 0;
+        }}
+        .stSidebar .stButton>button:hover {{
+            background-color: #FF4B4B !important;
+            color: #ffffff !important;
+        }}
+        .stSidebar .stButton>button.active {{
+            background-color: #00d4ff !important;
+            color: #121212 !important;
+            font-weight: 600 !important;
+        }}
         /* Dark Mode */
-        @media (prefers-color-scheme: dark) {
-            .stApp {
+        @media (prefers-color-scheme: dark) {{
+            .stApp {{
                 background: #121212;
                 color: #ffffff;
-            }
-            h1, h2, h3, h4 {
+            }}
+            h1, h2, h3, h4 {{
                 color: #ffffff;
-            }
-            .stButton>button:not(.stSidebar .stButton>button) {
-                background-color: #242222 !important;  /* ปรับให้เข้ากับ TextInput */
+            }}
+            .stButton>button:not(.stSidebar .stButton>button) {{
+                background-color: #242222 !important;
                 color: #ffffff !important;
                 border-radius: 8px;
                 padding: 10px;
-                border: 1px solid #FF4B4B !important;  /* ขอบเหมือน TextInput */
+                border: 1px solid #FF4B4B !important;
                 transition: 0.3s;
-            }
-            .stButton>button:not(.stSidebar .stButton>button):hover {
+            }}
+            .stButton>button:not(.stSidebar .stButton>button):hover {{
                 background-color: #333333 !important;
-            }
-            .stTextInput>div>div>input {
+            }}
+            .stTextInput>div>div>input {{
                 background-color: #000000;
                 color: #ffffff;
                 border: 1px solid #333333;
-            }
-        }
+            }}
+        }}
         /* Light Mode */
-        @media (prefers-color-scheme: light) {
-            .stApp {
+        @media (prefers-color-scheme: light) {{
+            .stApp {{
                 background: #121212;
                 color: #ffffff;
-            }
-            h1, h2, h3, h4 {
+            }}
+            h1, h2, h3, h4 {{
                 color: #ffffff;
-            }
-            .stButton>button:not(.stSidebar .stButton>button) {
-                background-color: #000000 !important;  /* ปรับให้เข้ากับ TextInput */
+            }}
+            .stButton>button:not(.stSidebar .stButton>button) {{
+                background-color: #000000 !important;
                 color: #ffffff !important;
                 border-radius: 8px;
                 padding: 10px;
-                border: 1px solid #333333 !important;  /* ขอบเหมือน TextInput */
+                border: 1px solid #333333 !important;
                 transition: 0.3s;
-            }
-            .stButton>button:not(.stSidebar .stButton>button):hover {
+            }}
+            .stButton>button:not(.stSidebar .stButton>button):hover {{
                 background-color: #333333 !important;
-            }
-            .stTextInput>div>div>input {
+            }}
+            .stTextInput>div>div>input {{
                 background-color: #000000;
                 color: #ffffff;
                 border: 1px solid #333333;
-            }
-        }
+            }}
+        }}
+        /* Conditional navbar hiding */
+        {navbar_css}
         </style>
     """, unsafe_allow_html=True)
     
