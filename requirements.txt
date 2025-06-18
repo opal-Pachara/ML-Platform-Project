@@ -5,3 +5,4 @@ scikit-learn
 pickle-mixin
 plotly
 torch
+python-dotenv

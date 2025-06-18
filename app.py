@@ -5,6 +5,11 @@ from show_introduction import show_introduction
 from show_model_development import show_model_development
 from show_ml import show_ml
 from show_nn import show_nn
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def main():
     # Handle visitor count with session state
@@ -149,8 +154,13 @@ def main():
         st.session_state.selected_page = "Introduction & Data Set"
     if st.sidebar.button("Algorithm & Model Development", key="algo"):
         st.session_state.selected_page = "Algorithm & Model Development"
-    if st.sidebar.button("Machine Learning Model", key="ml"):
-        st.session_state.selected_page = "Machine Learning Model"
+    
+    # Conditionally show ML model button based on environment variable
+    show_ml_model = os.getenv('SHOW_ML_MODEL', 'false').lower() == 'true'
+    if show_ml_model:
+        if st.sidebar.button("Machine Learning Model", key="ml"):
+            st.session_state.selected_page = "Machine Learning Model"
+    
     if st.sidebar.button("Neural Network Model", key="nn"):
         st.session_state.selected_page = "Neural Network Model"
 
