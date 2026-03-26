@@ -228,7 +228,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 import joblib
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>2.ข้อความในคอลัมน์ 'Comment' ถูกแปลงเป็นเวกเตอร์ TF-IDF โดยใช้ TfidfVectorizer ซึ่งจำกัดจำนวนคำที่สำคัญที่ใช้ในการสร้างเวกเตอร์. 
                     ส่วนของ Label ในคอลัมน์ 'Sentiment' ถูกแปลงเป็นตัวเลขเพื่อใช้ในการฝึกโมเดล โดย LabelEncoder จะแปลงค่าของ 'negative', 'neutral', 'positive' 
@@ -248,7 +248,7 @@ labels = label_encoder.transform(df['Sentiment'].values)
 tfidf = TfidfVectorizer(max_features=5000)
 X = tfidf.fit_transform(df['Comment'].values).toarray()
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>3.ข้อมูลถูกแบ่งออกเป็นสองชุด: ชุดฝึก (training) และชุดทดสอบ (testing) โดยใช้ train_test_split จาก sklearn. 
@@ -270,7 +270,7 @@ test_data = TensorDataset(X_test_tensor, y_test_tensor)
 train_loader = DataLoader(train_data, batch_size=32, shuffle=True)
 test_loader = DataLoader(test_data, batch_size=32)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>4.สร้างโมเดล Neural Network ด้วย PyTorch โดยใช้ architecture ที่ประกอบด้วย 2 เลเยอร์ที่เป็น Fully Connected Layers. 
@@ -294,7 +294,7 @@ class SentimentNN(nn.Module):
 
 model = SentimentNN()
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>5.โมเดลนี้ใช้ CrossEntropyLoss เป็น Loss Function สำหรับการคำนวณค่าผิดพลาดระหว่างค่าที่คาดการณ์และค่าจริง. 
@@ -305,7 +305,7 @@ model = SentimentNN()
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>6.โมเดลจะถูกฝึกด้วยข้อมูลที่แบ่งไว้ในชุดฝึก. ในแต่ละรอบการฝึก (epoch), โมเดลจะคำนวณค่า Loss จากข้อมูลที่ป้อนเข้าไปและปรับค่าพารามิเตอร์โดยใช้ optimizer. 
@@ -326,7 +326,7 @@ for epoch in range(num_epochs):
         running_loss += loss.item()
     print(f'Epoch {epoch+1}/{num_epochs}, Loss: {running_loss/len(train_loader)}')
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>7.หลังจากการฝึกเสร็จสิ้น, โมเดลจะถูกทดสอบด้วยชุดทดสอบที่ไม่ได้ใช้ในการฝึก. เราคำนวณอัตราความถูกต้อง (accuracy) 
@@ -346,7 +346,7 @@ with torch.no_grad():
 
 print(f'Accuracy: {100 * correct / total}%')
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>8.เมื่อโมเดลได้รับการฝึกเสร็จสมบูรณ์, โมเดลและตัวแปลงข้อความ (TF-IDF vectorizer และ Label encoder) 
@@ -362,7 +362,7 @@ joblib.dump(label_encoder, 'label_encoder.pkl')
 
 print("Model and Vectorizer saved successfully!")
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.image("img/Accuracy Model/W&B Chart 3_9_2025, 8_53_00 PM.png", caption="Accuracy Model Neural Network")
 
@@ -381,14 +381,14 @@ print("Model and Vectorizer saved successfully!")
     </h5>""", unsafe_allow_html=True)
         code = '''df = pd.read_csv("thai_plastic_bottle_waste_monthly_dataset_with_missing.csv")
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>2.โค้ดนี้แยกข้อมูลวันที่ออกเป็นปีและเดือน เพื่อให้สามารถใช้งานแยกส่วนได้ง่ายขึ้นในการวิเคราะห์
     </h5>""", unsafe_allow_html=True)
         code = '''df['Year'] = df['Date'].apply(lambda x: int(x.split('-')[0]))
 df['Month'] = df['Date'].apply(lambda x: int(x.split('-')[1]))
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>3.ส่วนนี้สร้างฟีเจอร์ใหม่ เช่น ขยะต่อประชากร หรือการผสมตัวแปรนโยบายและแนวโน้ม เพื่อเพิ่มข้อมูลที่เป็นประโยชน์สำหรับโมเดล
@@ -398,7 +398,7 @@ df['Waste_Policy_Interaction'] = df['Plastic Bottle Waste Generated (Million Bot
 df['Trend_Policy_Interaction'] = df['Recycling Trend (0-100)'] * df['Recycling Policy Level (0-3)']
 df['Year_Trend'] = df['Year'] * df['Recycling Trend (0-100)'])
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>4.โค้ดนี้กำหนดฟีเจอร์ที่ใช้ในการทำนาย (11 ตัวแปร) และตั้งเป้าหมายเป็นอัตราการรีไซเคิล เพื่อเตรียมข้อมูลสำหรับโมเดล
@@ -411,7 +411,7 @@ df['Year_Trend'] = df['Year'] * df['Recycling Trend (0-100)'])
 X = df[features]
 y = df['Recycling Rate (Million Bottles)']
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>5.ส่วนนี้ใช้เทคนิคเติมข้อมูลที่ขาดหายในฟีเจอร์และเป้าหมาย โดยดูจากข้อมูลใกล้เคียง เพื่อให้ข้อมูลครบถ้วน
@@ -420,7 +420,7 @@ y = df['Recycling Rate (Million Bottles)']
 X_imputed = pd.DataFrame(imputer.fit_transform(X), columns=features)
 y_imputed = pd.Series(imputer.fit_transform(y.values.reshape(-1, 1)).flatten(), name=y.name)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>6.โค้ดนี้ตรวจสอบและลบแถวที่มีข้อมูลขาดหายเหลืออยู่ออก เพื่อให้แน่ใจว่าข้อมูลสมบูรณ์
@@ -429,7 +429,7 @@ y_imputed = pd.Series(imputer.fit_transform(y.values.reshape(-1, 1)).flatten(), 
 X_imputed = X_imputed[mask]
 y_imputed = y_imputed[mask]
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>7.ส่วนนี้กำจัดข้อมูลที่ผิดปกติ (outliers) ออกจากฟีเจอร์และเป้าหมาย เพื่อให้ข้อมูลสะอาดและน่าเชื่อถือมากขึ้น
@@ -446,14 +446,14 @@ mask = X_imputed.notna().all(axis=1) & y_imputed.notna()
 X_imputed = X_imputed[mask]
 y_imputed = y_imputed[mask]
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>8.โค้ดนี้แบ่งข้อมูลเป็นชุดฝึกและชุดทดสอบในสัดส่วน 80:20 เพื่อใช้ฝึกโมเดลและทดสอบผล
     </h5>""", unsafe_allow_html=True)
         code = '''X_train, X_test, y_train, y_test = train_test_split(X_imputed, y_imputed, test_size=0.2, random_state=42)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>9.ส่วนนี้ปรับสเกลข้อมูลให้อยู่ในระดับเดียวกัน เพื่อให้โมเดลทำงานได้ดีขึ้น
@@ -462,7 +462,7 @@ y_imputed = y_imputed[mask]
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
 
         st.markdown("""<h5 style='font-family: Athiti;'>
     <br>SVR Model
@@ -479,7 +479,7 @@ print("SVR - MSE:", svr_mse, "R²:", svr_r2)
 with open('svr_model_new.pkl', 'wb') as f:
     pickle.dump(best_svr, f)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
                        โค้ดนี้พัฒนาโมเดล 
                     <span style="background-color: #990000;">SVR (Support Vector Regression)</span>
@@ -505,7 +505,7 @@ print("Decision Tree - MSE:", dt_mse, "R²:", dt_r2)
 with open('dt_model_new.pkl', 'wb') as f:
     pickle.dump(best_dt, f)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
                        โค้ดนี้พัฒนาโมเดล 
                     <span style="background-color: #990000;">Decision Tree Regressor</span>
@@ -531,7 +531,7 @@ print("KNN - MSE:", knn_mse, "R²:", knn_r2)
 with open('knn_model_new.pkl', 'wb') as f:
     pickle.dump(best_knn, f)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
                        โค้ดนี้พัฒนาโมเดล 
                     <span style="background-color: #990000;">KNeighborsRegressor (KNN)</span>
@@ -556,7 +556,7 @@ print("Random Forest - MSE:", rf_mse, "R²:", rf_r2)
 with open('rf_model_new.pkl', 'wb') as f:
     pickle.dump(best_rf, f)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
                        โค้ดนี้พัฒนาโมเดล 
                     <span style="background-color: #990000;">Random Forest Regressor</span>
@@ -581,7 +581,7 @@ print("SVM Linear - MSE:", svm_mse, "R²:", svm_r2)
 with open('svm_linear_model_new.pkl', 'wb') as f:
     pickle.dump(best_svm, f)
 '''
-        st.code(code, language="python", line_numbers=False, wrap_lines=False, height=False)
+        st.code(code, language="python", line_numbers=False, wrap_lines=False)
         st.markdown("""<p style='font-family: Athiti; text-align: justify;'>
                        โค้ดนี้พัฒนาโมเดล 
                     <span style="background-color: #990000;">SVR ด้วยเคอร์เนล linear</span>
