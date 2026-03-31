@@ -1,0 +1,26 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Dev container config (not needed at runtime)
+.devcontainer/
+
+# IDE / OS files
+.vscode/
+*.DS_Store
+Thumbs.db
+
+# Training scripts (not needed at runtime)
+Train Model Code/
+
+# Jupyter notebooks (if any)
+*.ipynb
+
+# Temporary files
+*.log
+*.tmp
